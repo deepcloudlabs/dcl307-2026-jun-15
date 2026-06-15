@@ -142,3 +142,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 /study-js/.idea
+study-js/package-lock.json
