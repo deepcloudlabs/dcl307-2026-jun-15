@@ -1,4 +1,4 @@
-# DCL-306: Developing Reactjs Applications using Typescript
+# DCL-307: Developing Reactjs Applications using Typescript
 
 These projects are created as part of the following training: DCL-307 "Developing Reactjs Applications using Typescript"
 
