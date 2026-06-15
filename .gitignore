@@ -143,3 +143,4 @@ vite.config.ts.timestamp-*
 .vite/
 /study-js/.idea
 study-js/package-lock.json
+/webrtc-node-vanillajs/.idea

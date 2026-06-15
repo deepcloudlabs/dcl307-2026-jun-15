@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WebRTC Node.js + Vanilla JS Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <h1>WebRTC Video Call</h1>
+        <p>
+          Node.js is used only as the signaling layer. Media is sent directly
+          between browsers through WebRTC.
+        </p>
+      </section>
+
+      <section class="controls">
+        <input id="roomInput" value="demo-room" placeholder="Room ID" />
+        <button id="joinBtn">Join Room</button>
+        <button id="leaveBtn" disabled>Leave</button>
+        <button id="muteBtn" disabled>Mute Mic</button>
+        <button id="cameraBtn" disabled>Disable Camera</button>
+      </section>
+
+      <section class="videos">
+        <article class="video-card">
+          <h2>Local</h2>
+          <video id="localVideo" autoplay playsinline muted></video>
+        </article>
+
+        <article class="video-card">
+          <h2>Remote</h2>
+          <video id="remoteVideo" autoplay playsinline></video>
+        </article>
+      </section>
+
+      <section class="status-panel">
+        <h2>Status</h2>
+        <p id="status">Not connected.</p>
+        <pre id="log"></pre>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

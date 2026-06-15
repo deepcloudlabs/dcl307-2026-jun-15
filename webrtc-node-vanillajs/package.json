@@ -1,0 +1,17 @@
+{
+  "name": "webrtc-node-vanillajs",
+  "version": "1.0.0",
+  "description": "Minimal WebRTC video call with Node.js signaling server and vanilla JavaScript frontend",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
