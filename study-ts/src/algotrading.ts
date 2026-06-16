@@ -15,6 +15,14 @@ type Trade = {
 
 const trades : Trade[] = [];
 
+webSocket.on("error", function () {
+
+});
+
+webSocket.on("close", function () {
+
+});
+
 webSocket.on("open", function () {
     console.log("Connected to binance.");
     setInterval(function () {
