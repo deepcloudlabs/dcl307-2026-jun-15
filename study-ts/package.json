@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch exercise1.ts"
+    "dev": "tsx watch src/exercise01.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,10 +15,10 @@
     "ws": "^8.1.0"
   },
   "devDependencies": {
-    "typescript": "^6.0.3",
     "@types/express": "^4.17.13",
-    "@types/ws": "^8.18.1",
     "@types/node": "^25.9.3",
-    "tsx": "^4.22.4"
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
   }
 }
