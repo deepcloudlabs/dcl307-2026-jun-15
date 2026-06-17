@@ -1,6 +1,11 @@
 import * as React from "react";
 import {type ChangeEventHandler, type MouseEventHandler, useEffect} from "react";
 import ProgressBar from "./components/common/ProgressBar.tsx";
+import Container from "./components/common/Container.tsx";
+import Card from "./components/common/Card.tsx";
+import Table from "./components/common/Table.tsx";
+import InputText from "./components/common/InputText.tsx";
+import Button from "./components/common/Button.tsx";
 
 type Move = {
     guess: number;
@@ -87,7 +92,13 @@ function MastermindApp() {
 
     const play: MouseEventHandler<HTMLButtonElement> = () => {
         if (guess === secret) {
-            //TODO: next game level
+            setMoves([]);
+            setGameLevel(level => level + 1);
+            setMaxCount(prevMaxCount => prevMaxCount + 10);
+            setMaxMoves(prevMaxMoves => prevMaxMoves + 4);
+            setCounter(maxCount + 10);
+            setLives(prevLives => prevLives + 1);
+            setSecret(createSecret(gameLevel + 1));
         } else {
             const move = evaluateMove(guess, secret);
             setMoves(prevMoves => [...prevMoves, move]);
@@ -95,80 +106,46 @@ function MastermindApp() {
     };
 
     return (
-        <div className="container py-4">
-            <div className="card">
-                <div className="card-header">
-                    <h3 className="card-title">Mastermind Game Console</h3>
+        <Container>
+            <Card title={"Mastermind Game Console"}>
+                <div className="form-group mb-3">
+                    <label className={"form-label"}>Game Level:</label>
+                    <span className="badge bg-success">{gameLevel}</span>
                 </div>
-                <div className="card-body">
-                    <div className="form-group mb-3">
-                        <label className={"form-label"}>Game Level:</label>
-                        <span className="badge bg-success">{gameLevel}</span>
-                    </div>
-                    <div className="form-group mb-3">
-                        <label>Lives: </label>
-                        <span className="badge bg-success">{lives}</span>
-                    </div>
-                    <div className="form-group mb-3">
-                        <label>Counter: </label>
-                        <span className="badge bg-success">{counter}</span>
-                    </div>
-                    <div className="form-group mb-3">
-                        <ProgressBar id="pbCounter"
-                                     maxValue={maxCount}
-                                     label={"Time left"}
-                                     value={counter}/>
-                    </div>
-                    <div className="form-group mb-3">
-                        <label>Moves: </label>
-                        <div className="badge bg-success">{moves.length}</div>
-                        out of <div className="badge bg-danger">{maxMoves}</div>
-                    </div>
-                    <div className="form-group mb-3">
-                        <label className={"form-label"}
-                               htmlFor={"guess"}>Guess: </label>
-                        <input type={"text"}
-                               className={"form-control"}
-                               id={"guess"}
-                               name={"guess"}
-                               value={guess}
-                               onChange={handleChange}/>
-                        <button className={"btn btn-success"}
-                                onClick={play}>Play
-                        </button>
-                    </div>
+                <div className="form-group mb-3">
+                    <label>Lives: </label>
+                    <span className="badge bg-success">{lives}</span>
                 </div>
-            </div>
-            <div className="card">
-                <div className="card-header">
-                    <h3 className="card-title">Moves</h3>
+                <div className="form-group mb-3">
+                    <label>Counter: </label>
+                    <span className="badge bg-success">{counter}</span>
                 </div>
-                <div className="card-body">
-                    <table className="table table-bordered table-hover table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Guess</th>
-                                <th>Evaluation</th>
-                                <th>Perfect Match</th>
-                                <th>Partial Match</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            moves.map((move: Move,index) => (
-                                <tr key={index}>
-                                    <td>{move.guess}</td>
-                                    <td>{move.evaluation}</td>
-                                    <td>+{move.perfectMatch}</td>
-                                    <td>-{move.partialMatch}</td>
-                                </tr>
-                            ))
-                        }
-                        </tbody>
-                    </table>
+                <div className="form-group mb-3">
+                    <ProgressBar max={maxCount}
+                                 min={0}
+                                 value={counter}/>
                 </div>
-            </div>
-        </div>
+                <div className="form-group mb-3">
+                    <label>Moves: </label>
+                    <div className="badge bg-success">{moves.length}</div>
+                    <span> out of </span> <div className="badge bg-danger">{maxMoves}</div>
+                </div>
+                <div className="form-group mb-3">
+                    <label className={"form-label"}
+                           htmlFor={"guess"}>Guess: </label>
+                    <InputText id="guess" label="Guess" value={guess} handleChange={handleChange} explain="Enter your guess" />
+                    <Button label="Play" click={play} color="btn-success" />
+                </div>
+            </Card>
+            <Card title={"Moves"}>
+                <Table
+                    values={moves}
+                    headers={["Guess", "Perfect Match", "Partial Match", "Evaluation"]}
+                    fields={["guess", "perfectMatch", "partialMatch", "evaluation"]}
+                    keyField="guess"
+                />
+            </Card>
+        </Container>
     )
 }
 
