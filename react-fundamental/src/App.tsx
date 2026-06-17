@@ -15,8 +15,8 @@ export default class App extends Component<object, State> {
         super(props);
         this.state = {
             lotteryNumbers: [
-                [4,8,15,16,23,42],
-                [10,20,30,40,50,60]
+                [4, 8, 15, 16, 23, 42],
+                [10, 20, 30, 40, 50, 60]
             ],
             n: 42
         };
@@ -50,9 +50,44 @@ export default class App extends Component<object, State> {
         console.log(`Component unmounted!`);
     }
 
-    draw = () => {}
+    createLotteryNumbers = (max: number = 60, size: number = 6): number[] => {
+        const numbers: number[] = [];
+        while (numbers.length < size) {
+            const number = Math.floor(Math.random() * max) + 1;
+            if (!numbers.includes(number))
+                numbers.push(Math.floor(Math.random() * max) + 1);
+        }
+        numbers.sort((a, b) => a - b);
+        return numbers;
+    }
 
-    reset = () => {}
+    draw = () => {
+        /*
+        const newLotteryNumbers = [...this.state.lotteryNumbers];
+        new Array(this.state.n).fill(0).forEach(
+            () => newLotteryNumbers.push(this.createLotteryNumbers(60,6))
+        )
+        this.setState({
+            lotteryNumbers: newLotteryNumbers
+        })
+        */
+        this.setState(prevState => {
+            const nextState = {...prevState};
+            nextState.lotteryNumbers = [...nextState.lotteryNumbers];
+            const newLotteryNumbers = nextState.lotteryNumbers;
+            new Array(this.state.n).fill(0).forEach(
+                () => newLotteryNumbers.push(this.createLotteryNumbers(60, 6))
+            )
+            return nextState;
+        })
+
+    }
+
+    reset = () => {
+        this.setState({
+            lotteryNumbers: []
+        })
+    }
 
     render() {
         return (
@@ -64,27 +99,29 @@ export default class App extends Component<object, State> {
                        onChange={this.handleChange}
                        value={this.state.n}/>
                 <button id={"draw"}
-                        onClick={this.draw}>Draw</button>
+                        onClick={this.draw}>Draw
+                </button>
                 <button id={"reset"}
-                        onClick={this.reset} >Reset</button>
+                        onClick={this.reset}>Reset
+                </button>
                 <table border={1} id={"lottery"}>
                     <thead>
                     <tr>{
-                        [1,2,3,4,5,6].map( rowNo => (
-                         <th key={rowNo}>Number #{rowNo}</th>
+                        [1, 2, 3, 4, 5, 6].map(rowNo => (
+                            <th key={rowNo}>Number #{rowNo}</th>
                         ))
                     }
                     </tr>
                     </thead>
                     <tbody>
                     {
-                       this.state.lotteryNumbers.map( (numbers, i) => (
-                           <tr key={i}>
-                               {numbers.map( (number) => (
-                                   <td key={number}>{number}</td>
-                               ))}
-                           </tr>
-                       ))
+                        this.state.lotteryNumbers.map((numbers, i) => (
+                            <tr key={i}>
+                                {numbers.map((number) => (
+                                    <td key={number}>{number}</td>
+                                ))}
+                            </tr>
+                        ))
                     }
                     </tbody>
                 </table>
