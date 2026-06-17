@@ -51,7 +51,7 @@ export default function FunctionalApp() {
             return nextLotteryNumbers;
         });
     }
-    
+
     const reset = () => {
         setLotteryNumbers([]);
     }
