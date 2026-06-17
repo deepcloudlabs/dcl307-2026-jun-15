@@ -16,32 +16,30 @@ function MastermindApp() {
     const [maxMoves, setMaxMoves] = React.useState<number>(10);
 
     return (
-        <div className="container">
-            <div className="Card">
+        <div className="container py-4">
+            <div className="card">
                 <div className="card-header">
                     <h3 className="card-title">Mastermind Game Console</h3>
                 </div>
                 <div className="card-body">
-                    <div className="row">
-                        <label>Game Level:</label>
-                        <div className="badge bg-success">{gameLevel}</div>
+                    <div className="form-group mb-3">
+                        <label className={"form-label"}>Game Level:</label>
+                        <span className="badge bg-success">{gameLevel}</span>
                     </div>
-                    <div className="row">
-                        <label>Lives:</label>
-                        <div className="badge bg-success">{lives}</div>
+                    <div className="form-group mb-3">
+                        <label>Lives: </label>
+                        <span className="badge bg-success">{lives}</span>
                     </div>
-                    <div className="row">
-                        <label>Counter:</label>
-                        <div className="badge bg-success">{counter}</div>
+                    <div className="form-group mb-3">
+                        <label>Counter: </label>
+                        <span className="badge bg-success">{counter}</span>
                     </div>
-                    <div className="row">
-                        <label>Moves:</label>
-                        <div className="badge bg-success">{moves.length}</div>
-                        out of
-                        <div className="badge bg-danger">{maxMoves}</div>
+                    <div className="form-group mb-3">
+                        <label>Moves: </label>
+                        <div className="badge bg-success">{moves.length}</div> out of <div className="badge bg-danger">{maxMoves}</div>
                     </div>
-                    <div className="row">
-                        <label>Guess:</label>
+                    <div className="form-group mb-3">
+                        <label>Guess: </label>
 
                     </div>
 
