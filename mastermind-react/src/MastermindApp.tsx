@@ -1,4 +1,6 @@
 import * as React from "react";
+import {useEffect} from "react";
+import ProgressBar from "./components/common/ProgressBar.tsx";
 
 type Move = {
     guess: number;
@@ -15,6 +17,14 @@ function MastermindApp() {
     const [moves, setMoves] = React.useState<Move[]>([]);
     const [maxMoves, setMaxMoves] = React.useState<number>(10);
 
+    useEffect(()=>{
+        const timerId = setInterval(()=>{
+            setCounter(prevCounter => prevCounter - 1);
+        }, 1_000);
+        return () => {
+            clearInterval(timerId);
+        };
+    })
     return (
         <div className="container py-4">
             <div className="card">
@@ -33,6 +43,12 @@ function MastermindApp() {
                     <div className="form-group mb-3">
                         <label>Counter: </label>
                         <span className="badge bg-success">{counter}</span>
+                    </div>
+                    <div className="form-group mb-3">
+                        <ProgressBar id="pbCounter"
+                                     maxValue={maxCount}
+                                     label={"Time left"}
+                                     value={counter}/>
                     </div>
                     <div className="form-group mb-3">
                         <label>Moves: </label>
