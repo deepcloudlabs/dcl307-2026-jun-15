@@ -1,59 +1,68 @@
-import { createContext, useContext, useReducer, type Dispatch, type ReactNode, type JSX } from "react";
+import {createContext, useContext, useReducer, type Dispatch, type ReactNode, type JSX} from "react";
 import createSecret from "../utils/utility";
 import MastermindStateless from "../MastermindStateless";
 import gameReducer from "../reducer/gameReducer";
-import type { GameAction, GameState } from "../types/game";
+import type {GameAction, GameState} from "../types/game";
 
 const initialGameState: GameState = {
-  secret: createSecret(3),
-  guess: 123,
-  level: 3,
-  maxTimeout: 60,
-  lives: 3,
-  moves: [],
-  counter: 60,
-  numberOfMoves: 0,
-  maxNumberOfMoves: 10,
-  status: "PLAYING"
+    secret: createSecret(3),
+    guess: 123,
+    level: 3,
+    maxTimeout: 60,
+    lives: 3,
+    moves: [],
+    counter: 60,
+    numberOfMoves: 0,
+    maxNumberOfMoves: 10,
+    status: "PLAYING"
 };
 
 interface GameContextValue {
-  game: GameState;
-  dispatchGame: Dispatch<GameAction>;
+    game: GameState;
+    dispatchGame: Dispatch<GameAction>;
 }
 
 export const GameContext = createContext<GameContextValue | undefined>(undefined);
 
 export function useGame(): GameState {
-  const context = useContext(GameContext);
+    const context = useContext(GameContext);
 
-  if (!context) {
-    throw new Error("useGame must be used inside MastermindProvider");
-  }
+    if (!context) {
+        throw new Error("useGame must be used inside MastermindProvider");
+    }
 
-  return context.game;
+    return context.game;
 }
 
 export function useGameDispatcher(): Dispatch<GameAction> {
-  const context = useContext(GameContext);
+    const context = useContext(GameContext);
 
-  if (!context) {
-    throw new Error("useGameDispatcher must be used inside MastermindProvider");
-  }
+    if (!context) {
+        throw new Error("useGameDispatcher must be used inside MastermindProvider");
+    }
 
-  return context.dispatchGame;
+    return context.dispatchGame;
 }
 
 interface MastermindProviderProps {
-  children?: ReactNode;
+    children?: ReactNode;
 }
 
-export default function MastermindProvider({ children }: MastermindProviderProps): JSX.Element {
-  const [game, dispatchGame] = useReducer(gameReducer, initialGameState);
+export default function MastermindProvider({children}: MastermindProviderProps): JSX.Element {
+    const localStorageInitialStateAsString = localStorage.getItem("mastermind2026");
+    let localStorageInitialState;
+    if (localStorageInitialStateAsString !== null) {
+        localStorageInitialState = JSON.parse(localStorageInitialStateAsString);
+    } else {
+        localStorageInitialState = initialGameState;
+    }
+    console.log(localStorageInitialState);
+    const [game, dispatchGame] =
+        useReducer(gameReducer, localStorageInitialState);
 
-  return (
-    <GameContext.Provider value={{ game, dispatchGame }}>
-      {children ?? <MastermindStateless />}
-    </GameContext.Provider>
-  );
+    return (
+        <GameContext.Provider value={{game, dispatchGame}}>
+            {children ?? <MastermindStateless/>}
+        </GameContext.Provider>
+    );
 }

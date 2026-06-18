@@ -1,4 +1,4 @@
-import {useEffect, useRef, type ChangeEventHandler, type MouseEventHandler, type JSX, useContext} from "react";
+import {useEffect, useRef, type ChangeEventHandler, type MouseEventHandler, type JSX} from "react";
 import { useNavigate } from "react-router-dom";
 import Badge from "./components/common/Badge";
 import Button from "./components/common/Button";
@@ -7,7 +7,7 @@ import Container from "./components/common/Container";
 import InputText from "./components/common/InputText";
 import ProgressBar from "./components/common/ProgressBar";
 import Table from "./components/common/Table";
-import {GameContext, useGame, useGameDispatcher} from "./provider/MastermindProvider";
+import {useGame, useGameDispatcher} from "./provider/MastermindProvider";
 
 export default function MastermindStateless(): JSX.Element {
   const game = useGame();

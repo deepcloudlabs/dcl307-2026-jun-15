@@ -47,7 +47,9 @@ export default function gameReducer(gameState: GameState, action: GameAction): G
           };
         }
 
-        return moveToNextLevel(leveledUpGameState);
+        const storedState = moveToNextLevel(leveledUpGameState);
+        localStorage.setItem("mastermind2026", JSON.stringify(storedState));
+        return storedState;
       }
 
       if (newGameState.numberOfMoves >= newGameState.maxNumberOfMoves) {
@@ -57,22 +59,28 @@ export default function gameReducer(gameState: GameState, action: GameAction): G
         };
 
         if (gameAfterLifeLost.lives === 0) {
-          return {
+          const storedState : GameState = {
             ...gameAfterLifeLost,
             status: "LOSES"
           };
+          localStorage.setItem("mastermind2026", JSON.stringify(storedState));
+          return storedState;
         }
 
-        return replayLevel(gameAfterLifeLost);
+        const storedState = replayLevel(gameAfterLifeLost);
+        localStorage.setItem("mastermind2026", JSON.stringify(storedState));
+        return storedState;
       }
 
-      return {
+      const storedState = {
         ...newGameState,
         moves: [
           ...newGameState.moves,
           evaluateMove({ secret: newGameState.secret, guess: newGameState.guess })
         ]
       };
+      localStorage.setItem("mastermind2026", JSON.stringify(storedState));
+      return storedState;
     }
 
     case "TIMER_TICK": {
@@ -98,7 +106,9 @@ export default function gameReducer(gameState: GameState, action: GameAction): G
         };
       }
 
-      return replayLevel(gameAfterLifeLost);
+      const storedState = replayLevel(gameAfterLifeLost);
+      localStorage.setItem("mastermind2026", JSON.stringify(storedState));
+      return storedState;
     }
 
     case "CHANGE_EVENT":
