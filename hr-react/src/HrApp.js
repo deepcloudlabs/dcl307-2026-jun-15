@@ -2,7 +2,7 @@ import Container from "./components/common/container";
 import Card from "./components/common/card";
 import {useDepartments, useEmployee, useHrDispatcher} from "./providers/hr-provider";
 import InputText from "./components/common/input-text";
-import React, {useCallback} from "react";
+import React, {useCallback, useMemo} from "react";
 import SelectBox from "./components/common/select-box";
 import Photo from "./components/common/photo";
 import CheckBox from "./components/common/check-box";
@@ -15,6 +15,15 @@ function HrApp() {
     const employee = useEmployee();
     const departments = useDepartments();
     const hrDispatcher = useHrDispatcher();
+
+    const photo = React.memo(<Photo id={"photo"}
+             label={"Photo"}
+             handleChange={handlePhotoChange}
+             value={'data:image/jpeg;base64,'.concat(employee.photo)}/>);
+
+    const realSalary = useMemo(() => {
+        return employee.salary * 1.45;
+    }, [employee.salary]);
 
     const handleChange = useCallback(e => {
         hrDispatcher({type: ActionTypes.ON_CHANGE, value: e.target.value, name: e.target.name});
@@ -107,10 +116,7 @@ function HrApp() {
                                label={"Department"}
                                options={departments}
                                change={handleChange}/>
-                    <Photo id={"photo"}
-                           label={"Photo"}
-                           handleChange={handlePhotoChange}
-                           value={'data:image/jpeg;base64,'.concat(employee.photo)}/>
+                    {photo}
                     <CheckBox value={employee.fulltime}
                               label={"Full Time"}
                               handleChange={handleFullTimeChange}
