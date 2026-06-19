@@ -80,7 +80,7 @@ export default function CelebMatch() {
                 if (cancelled) return;
                 galleryRef.current = out;
                 setIndexed(out.length);
-                setStatus(out.length ? `Ready · ${out.length} demo faces. Load a celebs.json for real matches.` : "Models ready. Load a celebs.json to match.");
+                setStatus(out.length ? `Ready · ${out.length} demo faces. Load a celebs.json for real matches.` : "Models ready. Load a celebs-orig.json to match.");
             } catch {
                 setError("Couldn't load the face models. Check your network connection.");
                 setStatus("Failed to load");
@@ -171,8 +171,6 @@ export default function CelebMatch() {
         <style>{`@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}} *{box-sizing:border-box}`}</style>
 
         <header style={S.head}>
-            <h1 style={S.h1}>doppel<span style={{color: "#5b8cff"}}>·</span>gänger</h1>
-            <p style={S.sub}>find the celebrities your face is nearest to — all in the browser</p>
         </header>
 
         <div style={S.stage}>

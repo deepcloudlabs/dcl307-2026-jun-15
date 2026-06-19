@@ -44,14 +44,6 @@ export function LoginForm({ isLoading, error, onSubmit }: LoginFormProps) {
       <button type="submit" disabled={isLoading}>
         {isLoading ? "Signing in..." : "Login and receive JWT"}
       </button>
-
-      <div className="hint">
-        <strong>Demo accounts:</strong>
-        <br />
-        jack@example.com / admin123
-        <br />
-        kate@example.com / user123
-      </div>
     </form>
   );
 }

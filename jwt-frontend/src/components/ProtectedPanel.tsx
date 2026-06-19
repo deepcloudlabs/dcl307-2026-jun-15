@@ -19,6 +19,12 @@ export function ProtectedPanel({
   onGetAdminReports,
   onLogout,
 }: ProtectedPanelProps) {
+  let buttons = "";
+  if (user.role === "user"){
+    buttons = (<><button>Update</button></>);
+  } else if (user.role === "admin"){
+    buttons = <><button>Update</button><button>Delete</button></>;
+  }
   return (
     <section className="card">
       <div className="panelHeader">
@@ -33,6 +39,7 @@ export function ProtectedPanel({
         <button className="secondary" type="button" onClick={onLogout}>
           Logout
         </button>
+        {buttons}
       </div>
 
       <h3>Access token</h3>

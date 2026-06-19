@@ -154,3 +154,7 @@ study-js/package-lock.json
 /face-matcher-app/.idea
 /face-matcher-app/src/precompute
 /webrtc-video-to-node-udp/.idea
+/jwt-backend-keycloak/.idea
+/hr-react-redux/.idea
+/lottery-redux/.idea
+/mastermind-redux/.idea

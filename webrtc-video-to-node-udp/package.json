@@ -1,0 +1,21 @@
+{
+  "name": "react-webrtc-video-to-node-udp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React JavaScript camera video stream to a Node.js backend over WebRTC, whose media path uses UDP when ICE selects UDP candidates.",
+  "scripts": {
+    "client": "vite --host 0.0.0.0 --port 5173",
+    "backend": "node backend/signaling-server.cjs",
+    "dev": "concurrently -k -n BACKEND,CLIENT -c blue,green \"npm run backend\" \"npm run client\""
+  },
+  "dependencies": {
+    "@roamhq/wrtc": "^0.10.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "ws": "^8.18.0",
+    "concurrently": "^9.1.0"
+  },
+  "devDependencies": {}
+}

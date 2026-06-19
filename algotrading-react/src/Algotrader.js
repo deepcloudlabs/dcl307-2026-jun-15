@@ -30,7 +30,10 @@ function Algotrader() {
     const [totalVolumes, setTotalVolumes] = useState(0);
     const [isMonitoring, setMonitoring] = useState(false);
     const [windowSize, setWindowSize] = useState(100);
-    const socket = useMemo(() => io(SOCKET_URL), []);
+    const socket = useMemo(() => io(SOCKET_URL,{
+        transports: ["websocket"], // prefer WS in case polling is disabled on the server
+        autoConnect: true,
+    }), []);
 
     const windowSizeRef = useRef(windowSize);
     useEffect(() => {
@@ -40,6 +43,7 @@ function Algotrader() {
     const socketRef = useRef(socket);
 
     useEffect(() => {
+        console.log("Monitoring has been changed: ", isMonitoring);
         if (!isMonitoring) return;
 
         const socket = io(SOCKET_URL, {
@@ -58,6 +62,7 @@ function Algotrader() {
         socket.on("ticker", onTicker);
 
         return () => {
+            console.log("Disconnecting from ws: ", isMonitoring);
             socket.off("ticker", onTicker);
             socket.disconnect();
             socketRef.current = null;
